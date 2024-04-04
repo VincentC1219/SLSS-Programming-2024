@@ -13,13 +13,13 @@ print(f"Nice to meet you, {name}")
 # Ask 3 questions
 # Responds specificalt to those questions
 
-book1 = input("So, what's your favorite book?")
+answer1 = input("So, what's your favorite book?")
 
-print(f"I see, I haven't read {book1} before, you should introduce it to me")
+print(f"I see, I haven't read {answer1} before, you should introduce it to me")
 
 answer2 = input("What about food, what's your favorite food?")
 
-print(f"I see, form what I hear, {answer2} is quite good")
+print(f"I see, from what I hear, {answer2} is quite good")
 
 answer3 = input("Lastly, what's you favorite animal?")
 
