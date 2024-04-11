@@ -35,11 +35,8 @@ import time
 # countdown(int(start))
 
 
-def int_x:
 
-
-def check(start:str) -> int:
-    int(start)
+def check(start):
     if start == 0:
         print("Sorry I can't countup from zero")
     elif start < 0:
@@ -53,9 +50,7 @@ def countup(begin: str) -> int:
     int(begin)
     for i in range(begin):
         print(check(i + 1))
+        time.sleep(.5)
 
 
-
-x = input("What number do you want me to count up to?")
-
-check(int_x)
+start = check(int(input("Hello, please give me a number for me to count to towards \n")))
