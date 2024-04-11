@@ -52,5 +52,5 @@ def countup(begin: str) -> int:
         print(check(i + 1))
         time.sleep(.5)
 
-
 start = check(int(input("Hello, please give me a number for me to count to towards \n")))
+countup(start)
