@@ -13,7 +13,7 @@ class Pokemon: # use a capital letter for class names
         """A special method (funtction) called a contrustor. Contains all the properties/"""
         self.name = ""
         self.id = 0
-        self.weigt = 0
+        self.weight = 0
         self.height = 0
         self.type = "normal"
 
@@ -26,6 +26,22 @@ pokemon_one = Pokemon()
 
 #Change some properties in pokemon_one
 #   Change its name
-print(pokemon_one.name)
+
 pokemon_one.name = "Pikachu"
 print(pokemon_one.name)
+
+pokemon_one.id = 25
+pokemon_one.type = "Electric"
+
+print(pokemon_one.id)
+print(pokemon_one.type)
+
+pokemon2 = Pokemon()
+
+pokemon2.name = "Vaporeon"
+pokemon2.id = 134
+pokemon2.type = "Water"
+pokemon2.weight = 29.0
+pokemon2.height = 1.0
+
+print(pokemon2)
