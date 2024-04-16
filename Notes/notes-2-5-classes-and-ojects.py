@@ -44,4 +44,8 @@ pokemon2.type = "Water"
 pokemon2.weight = 29.0
 pokemon2.height = 1.0
 
-print(pokemon2)
+print(pokemon2.name)
+print(pokemon2.id)
+print(pokemon2.type)
+print(pokemon2.weight)
+print(pokemon2.height)
