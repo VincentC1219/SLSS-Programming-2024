@@ -16,13 +16,42 @@ class Pokemon: # use a capital letter for class names
         self.weight = 0
         self.height = 0
         self.type = "normal"
+        self.actual_cry = "roar"
 
         print("A new pokemon is born")
 
         # Create two Pokemon using our class
         # Make one pokemon that is pikachu
+def cry(self) -> str:
+    """represents the sound a pokemon makes
+    
+    returns:
+        - string representing the sound it makes"""
+    return f'{self.name} says, "{self.actual_cry}"!'
+pokemon_one = Pokemon
 
-pokemon_one = Pokemon()
+def eat(self, food:str) -> str:
+    """Represents feeding the Pokemon
+    
+    Params:
+        - food: what food you feed it
+        
+    Returns:
+        - What it says after eating it"""
+    if food.lower() == "berry":
+        return f"{self.name} ate the berry and says \"TUM!\""
+    elif food.lower() == "potion":
+        return f"{self.name} consumed the potion and feels healthier"
+    elif food.lower == "poison":
+        return f"{self.name} ate the poison and begins to colapse \n {self.name} feels uneasy and begins to squint their eyes \n {self.name} as fainted"
+    else:
+        return f"{self.name} batted the {food} away."
+    
+# Create a new child class of Pokemon
+class Pikachu(Pokemon):
+    def __init__(self):
+        # call constructor of parent class
+        super().__init__()
 
 #Change some properties in pokemon_one
 #   Change its name
@@ -49,3 +78,15 @@ print(pokemon2.id)
 print(pokemon2.type)
 print(pokemon2.weight)
 print(pokemon2.height)
+
+pokemon_one.actual_cry = "Pikachu"
+pokemon2.actual_cry = "Vaporeon"
+
+print(pokemon_one.cry())
+print(pokemon2.cry())
+
+
+# Test eat method
+print(pokemon_one.eat("berry"))
+print(pokemon_one.eat("potion"))
+print(pokemon_one.eat("poison")) # Mr. Ubial condones this very much
