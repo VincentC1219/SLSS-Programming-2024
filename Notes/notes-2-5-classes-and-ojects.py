@@ -65,12 +65,50 @@ class Pikachu(Pokemon):
             - defender: defending Pokemon
         
         Returns:
-            str respresenting result of Pokemon"""
+            str respresenting result of Pokemon
+        """
+        response = f"{self.name} used thundershck on {defender.name}"
 
         if defender.type.lower() in ["water", "flying"]:
             response = response + "It was super effective."
 
         return response
+
+
+class Kecleon(Pokemon):
+        def __init__(self, type="dark"):
+            super().__init__()
+            self.name = name
+            self.id = 352
+            self.type = "normal"
+            self.actual_cry = "AAAAHHHHH!"
+
+            pass
+
+        def sucker_punk(self, defender: Pokemon) -> str:
+            
+            response = f"{self.name} used sucker punch on {defender.name}"
+
+            if defender.type.lower() in ["ghost", "physic"]:
+                response = response + "It is super effective."
+            elif defender.type.lower() in ["fighting", "dark", "fairy"]:
+                response = response + "It was not very effective."
+            pass
+
+class Vaporeon(Pokemon):
+        def __init__(self, name="Vaporeon"):
+            super().__init__()
+            self.name = name
+            self.id = 134
+            self.type = "Water"
+            self.actual_cry = "Vaporeon"
+
+            pass
+
+        def charm(self, defender: Pokemon) -> str:
+            response = f"{self.name} used charm on {defender.name}"
+            pass
+
 
 #Change some properties in pokemon_one
 #   Change its name
@@ -78,32 +116,34 @@ pokemon1 = Pokemon()
 
 pokemon1.name = "Pikachu"
 print(pokemon1.name)
-
 pokemon1.id = 25
-pokemon1.type = "Electric"
-
+pokemon1.
 print(pokemon1.id)
 print(pokemon1.type)
 
 pokemon2 = Pokemon()
-
 pokemon2.name = "Vaporeon"
 pokemon2.id = 134
 pokemon2.type = "Water"
 pokemon2.weight = 29.0
 pokemon2.height = 1.0
-
 print(pokemon2.name)
 print(pokemon2.id)
 print(pokemon2.type)
 print(pokemon2.weight)
 print(pokemon2.height)
-
 pokemon1.actual_cry = "Pikachu"
 pokemon2.actual_cry = "Vaporeon"
-
 print(pokemon1.cry())
 print(pokemon2.cry())
+
+pokemon3 = Pokemon()
+pokemon3.name = "Kecleon"
+pokemon3.id = 352
+pokemon3.type = "Normal"
+pokemon3.weight = 22.0
+pokemon3.height = 1.0
+pokemon3.actual_cry = "AAAAHHHHH!"
 
 
 # Test eat method
