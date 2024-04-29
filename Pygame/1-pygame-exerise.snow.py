@@ -1,3 +1,4 @@
+import random
 import pygame as pg
 
 # --CONSTANTS--
@@ -14,6 +15,34 @@ WIDTH = 1280  # Pixels
 HEIGHT = 720
 SCREEN_SIZE = (WIDTH, HEIGHT)
 
+class Snowflake(pg.sprite.Sprite):
+    # create contructor
+    #   image, rect
+    def __init__(self, size: int):
+        super().__init__()
+        # Createing a 'blank" image
+        self.image = pg.Surface((size, size))
+        
+        # Draw a circle on the "blank imahe"
+        pg.draw.circle(
+            self.image,
+            WHITE,
+            (size // 2, size // 2), # draw in the midle
+            size // 2
+        )
+        self.rect = self.image.get.rect()
+        self.rect.x = random.randrange(0, WIDTH - self.rect.height)
+
+        self.rect.y = 0
+        self.vel_x = 0
+        
+        self.vel_y - random.randrange(1, 5)
+
+        def update(self):
+            self.rect.x += self.vel_x
+            self.rect.y += self.vel_y
+
+
 
 def start():
     """Environment Setup and Game Loop"""
@@ -28,7 +57,10 @@ def start():
     # All sprites go in this sprite Group
     all_sprites = pg.sprite.Group()
 
-    pg.display.set_caption("<WINDOW TITLE HERE>")
+    # add one snowflake to the sprite Group
+    all_sprites.add(Snowflake())
+
+    pg.display.set_caption("snowflake")
 
     # --Main Loop--
     while not done:
