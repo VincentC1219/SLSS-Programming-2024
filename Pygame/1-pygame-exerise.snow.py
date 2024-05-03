@@ -1,3 +1,4 @@
+
 import random
 import pygame as pg
 
@@ -21,23 +22,23 @@ class Snowflake(pg.sprite.Sprite):
     def __init__(self, size: int):
         super().__init__()
         # Createing a 'blank" image
+
         self.image = pg.Surface((size, size))
         
         # Draw a circle on the "blank imahe"
-        pg.draw.circle(
-            self.image,
-            WHITE,
-            (size // 2, size // 2), # draw in the midle
-            size // 2
-        )
-        self.rect = self.image.get.rect()
-        self.rect.x = random.randrange(0, WIDTH - self.rect.height)
+        pg.draw.circle(self.image, WHITE, (size // 2, size // 2), size // 2)
 
+        self.rect = self.image.get_rect()
+
+        self.rect.centerx = random.randrange(0, WIDTH + 1)
+        self.rect.centery = 0
+    
+        self.rect.x = random.randrange(0, WIDTH - self.rect.right)
         self.rect.y = 0
-        self.vel_x = 0
-        
-        self.vel_y - random.randrange(1, 5)
 
+        self.vel_x = 0
+
+        self.vel_y = 5
         def update(self):
             self.rect.x += self.vel_x
             self.rect.y += self.vel_y
@@ -58,9 +59,10 @@ def start():
     all_sprites = pg.sprite.Group()
 
     # add one snowflake to the sprite Group
-    all_sprites.add(Snowflake())
+    for _ in range(100):
+        all_sprites.add(Snowflake(10))
 
-    pg.display.set_caption("snowflake")
+    pg.display.set_caption("screen")
 
     # --Main Loop--
     while not done:
@@ -73,6 +75,9 @@ def start():
 
         # --- Draw items
         screen.fill(BLACK)
+
+        all_sprites.draw(screen)
+        all_sprites.update()
 
         # Update the screen with anything new
         pg.display.flip()
