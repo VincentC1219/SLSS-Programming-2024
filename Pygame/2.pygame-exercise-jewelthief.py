@@ -18,6 +18,7 @@ HEIGHT = 720
 SCREEN_SIZE = (WIDTH, HEIGHT)
 
 NUM_COIN = 10
+NUM_ENEMIES = 5
 
 class Player(pg.sprite.Sprite):
     def __init__(self):
@@ -46,7 +47,15 @@ class Enemy(pg.sprite.Sprite):
     def __init__(self):
         super().__init__()
 
-        self.image = pg.image.load("./Images/green-shell.png")
+        # Load image
+        ENEMY_IMG = pg.image.load("./Images/green-shell.png")
+
+        # Scale the image
+
+        self.image = pg.transform.scale(
+            ENEMY_IMG,
+            (ENEMY_IMG.get_width() // 2.5, ENEMY_IMG.get_height() //2.5)
+        )
         self.rect = self.image.get_rect()
 
         self.rect.x = random.randrange(0, WIDTH - self.rect.width)
@@ -94,11 +103,19 @@ def start():
     # Coin sprites
     coin_sprites = pg.sprite.Group()
 
+    enemy_sprite = pg.sprite.Group()
+
     for _ in range (NUM_COIN):
         coin = Coin()
 
         all_sprites.add(coin)
         coin_sprites.add(coin)
+
+    for _ in range (NUM_ENEMIES):
+        enemy = Enemy()
+
+        all_sprites.add(enemy)
+        enemy_sprite.add(enemy)
 
     pg.display.set_caption("screen")
 
@@ -107,8 +124,6 @@ def start():
     player = Player()
 
     all_sprites.add(player)
-
-    enemy = Enemy()
 
     all_sprites.add(enemy) 
 
@@ -144,13 +159,13 @@ def start():
                 all_sprites.add(coin)
                 coin_sprites.add(coin)
 
-        enemy_collided = pg.sprite.spritecollide(player, enemy, False)
+        # enemy_collided = pg.sprite.spritecollide(player, enemy, False)
 
-        for enemy in enemy_collided:
-            # decrease score by 1
-            score -= 1
+        # for enemy in enemy_collided:
+        #     # decrease score by 1
+        #     score -= 1
 
-            print(score)
+        #     print(score)
 
 
         # --- Draw items

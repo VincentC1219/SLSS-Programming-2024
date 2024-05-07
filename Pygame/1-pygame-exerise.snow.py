@@ -29,19 +29,18 @@ class Snowflake(pg.sprite.Sprite):
         pg.draw.circle(self.image, WHITE, (size // 2, size // 2), size // 2)
 
         self.rect = self.image.get_rect()
-
-        self.rect.centerx = random.randrange(0, WIDTH + 1)
-        self.rect.centery = 0
-    
-        self.rect.x = random.randrange(0, WIDTH - self.rect.right)
-        self.rect.y = 0
-
+        
+        self.rect.x = random.randrange(0, WIDTH - self.rect.width)
+        self.rect.y = random.randrange(0, HEIGHT - self.rect.height)
         self.vel_x = 0
+        self.vel_y = 2
 
-        self.vel_y = 5
-        def update(self):
-            self.rect.x += self.vel_x
-            self.rect.y += self.vel_y
+    def update(self):
+        self.rect.x += self.vel_x
+        self.rect.y += self.vel_y
+
+        if self.rect.bottom > HEIGHT:
+            self.rect.y = 0
 
 
 
@@ -56,6 +55,7 @@ def start():
     clock = pg.time.Clock()
 
     # All sprites go in this sprite Group
+
     all_sprites = pg.sprite.Group()
 
     # add one snowflake to the sprite Group
@@ -73,17 +73,20 @@ def start():
 
         # --- Update the world state
 
+        all_sprites.update()
+
         # --- Draw items
         screen.fill(BLACK)
 
         all_sprites.draw(screen)
-        all_sprites.update()
+        
 
         # Update the screen with anything new
         pg.display.flip()
 
         # --- Tick the Clock
         clock.tick(60)  # 60 fps
+    pg.quit()
 
 
 def main():
