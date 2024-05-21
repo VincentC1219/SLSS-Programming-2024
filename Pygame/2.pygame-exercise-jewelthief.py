@@ -24,13 +24,30 @@ class Player(pg.sprite.Sprite):
     def __init__(self):
         super().__init__()
 
-        self.image= pg.image.load("./Images/mario.png")
+        self.images = [
+            pg.image.load("./Images/mario.png"),
+            pg.transform.flip(pg.image.load("./Images/mario.png"), True, False),
+        ]
+
+        self.image = self.images[0]
+
         self.rect = self.image.get_rect()
+
+        self.lives_remaining = 9
+
+        self.facing = 0 # 0 is right, 1 is left
 
     def update(self):
         """Updates the loction of sprite to mouse cursor"""
-        self.rect.centerx = pg.mouse.get_pos()[0]
-        self.rect.centery = pg.mouse.get_pos()[1]
+        next_pos = pg.mouse.get_pos()
+
+        if self.rect.centerx > next_pos[0]:
+            self.facing = 1
+        elif self.rect.centery < next_pos[1]:
+            self.facing = 0
+
+        self.rect.center = next_pos
+        self.image = self.images[self.facing]
 
 class Coin(pg.sprite.Sprite):
     def __init__(self):
@@ -61,8 +78,8 @@ class Enemy(pg.sprite.Sprite):
         self.rect.x = random.randrange(0, WIDTH - self.rect.width)
         self.rect.y = random.randrange(0, HEIGHT - self.rect.height)
 
-        self.vel_x = 2
-        self.vel_y = 2
+        self.vel_x = random.choice((-6, -5, -4, 4, 5, 6))
+        self.vel_y = random.choice((-6, -5, -4, 4, 5, 6))
     
     def update(self):
         self.rect.x += self.vel_x
@@ -96,14 +113,14 @@ def start():
     clock = pg.time.Clock()
 
     score = 0
+    font = pg.font.SysFont("Futura", 24)
 
     # All sprites go in this sprite Group
     all_sprites = pg.sprite.Group()
-
-    # Coin sprites
     coin_sprites = pg.sprite.Group()
+    enemy_sprites = pg.sprite.Group()
 
-    enemy_sprite = pg.sprite.Group()
+    # Create coins
 
     for _ in range (NUM_COIN):
         coin = Coin()
@@ -115,7 +132,7 @@ def start():
         enemy = Enemy()
 
         all_sprites.add(enemy)
-        enemy_sprite.add(enemy)
+        enemy_sprites.add(enemy)
 
     pg.display.set_caption("screen")
 
@@ -125,7 +142,10 @@ def start():
 
     all_sprites.add(player)
 
-    all_sprites.add(enemy) 
+    for _ in range(NUM_ENEMIES):
+        enemy = Enemy()
+        all_sprites.add(enemy)
+        enemy_sprites.add(enemy)
 
     pg.display.set_caption("Jewel Thief Clone (Don't sue us Nintendo)")
 
@@ -159,25 +179,39 @@ def start():
                 all_sprites.add(coin)
                 coin_sprites.add(coin)
 
-        # enemy_collided = pg.sprite.spritecollide(player, enemy, False)
+        enemies_collided = pg.sprite.spritecollide(player, enemy_sprites, False)
 
-        # for enemy in enemy_collided:
-        #     # decrease score by 1
-        #     score -= 1
+        # Iteratethrough enemies collided to notify console
+        for enemy in enemies_collided:
+            #Decrease player's life by one life per seond
+            player.lives_remaining -= 1/60
 
-        #     print(score)
-
+            # Print player's current lives remaining
+            print(f"Lives: {int(player.lives_remaining)}")
 
         # --- Draw items
         screen.fill(WHITE)
 
         all_sprites.draw(screen)
 
+        # Create score and lives
+        score_image = font.render(f"Score: {score}", True, GREEN)
+        lives_image = font.render(
+            f"Lives remaining: {int(player.lives_remaining)}", True, GREEN
+        )
+
+        screen.blit(score_image, (5, 5))
+        screen.blit(lives_image, (5, 35))
+
+
         # Update the screen with anything new
         pg.display.flip()
 
         # --- Tick the Clock
         clock.tick(60)  # 60 fps
+
+        if player.lives_remaining <= 1:
+            pg.quit()
 
 
 def main():
