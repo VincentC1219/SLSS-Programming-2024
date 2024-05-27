@@ -89,7 +89,7 @@ class Enemy(pg.sprite.Sprite):
         )
         self.rect = self.image.get_rect()
 
-        self.vel_y = 7
+        self.vel_y = 5
         self.vel_x = 2
 
         self.rect.x = random.randrange(0, WIDTH - self.rect.width)
